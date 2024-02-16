@@ -1,8 +1,8 @@
-# CiTIUS Invaders
+# Provar Bug Invaders
 
-An old-style arcade game to learn evolutionary algorithms and genetic algorithms. 
+An old-style arcade game. 
 
-__[Play the web version!](https://citiususc.github.io/citius-invaders/)__
+__[Play the web version!]()__
 
 ## About
 
@@ -16,7 +16,7 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 ## How to play
 
-Controls are very easy. Just use left/right arrow to move your robot and space to shot. The goal is to keep the number of invaders below 100, otherwise the game is over. There are always at least 4 invaders (elitism), which are protected with blue shields. The player earns 1 point for each evolution time.
+Controls are very easy. Just use left/right arrow to move your robot and space to shoot. The goal is to keep the number of invaders below 100, otherwise the game is over. There are always at least 4 invaders (elitism), which are protected with blue shields. The player earns 1 point for each evolution time.
 
 ## Code
 
