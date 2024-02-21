@@ -2,7 +2,7 @@
 
 An old-style arcade game. 
 
-__[Play the web version!]()__
+__[Play the web version!](https://ajaylamba-provar.github.io/bug-invaders/)__
 
 ## About
 
@@ -10,7 +10,7 @@ This game was created to explain the basic concepts of evolution and genetic pro
 
 If you want to learn how the game is implemented, Siraj Raval made a great analysis of the game, which is available on Youtube:
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=rGWBo0JGf50
+<a href="https://www.youtube.com/watch?feature=player_embedded&v=rGWBo0JGf50
 " target="_blank"><img src="https://img.youtube.com/vi/rGWBo0JGf50/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
@@ -20,13 +20,12 @@ Controls are very easy. Just use left/right arrow to move your robot and space t
 
 ## Code
 
-There are two versions of the game, a [python version](https://github.com/citiususc/citius-invaders/tree/master/python) built on top of the [SGE Game Engine](http://pythonhosted.org/sge-pygame/index.html) and a [HTML5 version](https://github.com/citiususc/citius-invaders/tree/master/js) made with [Phaser](http://phaser.io/). You can play the HTML5 version here: https://citiususc.github.io/citius-invaders
+There are two versions of the game, a [python version](https://github.com/ajaylamba-provar/bug-invaders/tree/main/python) built on top of the [SGE Game Engine](http://pythonhosted.org/sge-pygame/index.html) and a [HTML5 version](https://github.com/ajaylamba-provar/bug-invaders/tree/main/js) made with [Phaser](http://phaser.io/). You can play the HTML5 version here: https://ajaylamba-provar.github.io/bug-invaders/
 
 ## Authors
 
-This game was made by [Tomás Teijeiro](https://github.com/tomas-teijeiro) and [Pablo Rodríguez Mier](https://github.com/pablormier) because why not?
+This game is a fork of https://github.com/citiususc/citius-invaders/tree/master and customized by [Ajay](https://github.com/ajaylamba-provar) and [Shashank](https://github.com/Shashank-Sharma-075) because why not!
 
-The music was composed by the amazing Constantino Antonio García Fernández, who, despite being involved in thousands of projects and activities, still finds time to help his friends with these stupid things.
 
 ## Screenshots
 
