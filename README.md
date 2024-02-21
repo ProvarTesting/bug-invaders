@@ -11,7 +11,7 @@ This game was created to explain the basic concepts of evolution and genetic pro
 If you want to learn how the game is implemented, Siraj Raval made a great analysis of the game, which is available on Youtube:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=rGWBo0JGf50
-" target="_blank"><img src="http://img.youtube.com/vi/rGWBo0JGf50/0.jpg" 
+" target="_blank"><img src="https://img.youtube.com/vi/rGWBo0JGf50/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 ## How to play
