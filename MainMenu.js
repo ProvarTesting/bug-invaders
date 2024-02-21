@@ -11,7 +11,7 @@ invadersApp.MainMenu.prototype = {
 
 		this.mainMusic = this.add.audio('mainMusic');
 
-        var textTop = invadersApp.utils.addText(this, this.game.width / 2, 50, 'CITIUS PROUDLY PRESENTS:' , 2);
+        var textTop = invadersApp.utils.addText(this, this.game.width / 2, 50, 'PROVAR PROUDLY PRESENTS:' , 2);
         textTop.alpha = 0;
 
 
@@ -25,14 +25,11 @@ invadersApp.MainMenu.prototype = {
 		logo.scale.setTo(0.6, 0.6);
         logo.visible = false;
 
-        var textIES = invadersApp.utils.addText(this, this.game.width / 2, titleYPos + 50, 'A GAME FOR IES ROSALIA DE CASTRO', 1);
+        var textIES = invadersApp.utils.addText(this, this.game.width / 2, titleYPos + 50, 'A GAME FOR HUNTING BUGS', 1);
         textIES.img.visible = false;
 
         var textPressStart = invadersApp.utils.addText(this, this.game.width / 2, titleYPos + 200, 'PRESS ENTER', 2);
         textPressStart.img.visible = false;
-
-        var textCopyright = invadersApp.utils.addText(this, this.game.width / 2, logo.y + 40, 'CENTRO SINGULAR DE INVESTIGACION EN TECNOLOXIAS DA INFORMACION', 1);
-        textCopyright.img.visible = false;
 
         var tweenPresents = this.game.add.tween(textTop).to( { alpha: 1 }, 800, Phaser.Easing.Linear.None, false, 200);
         var tweenTitle = this.game.add.tween(title).to( { y: this.game.height / 3 }, 1200, Phaser.Easing.Bounce.Out, false);
@@ -46,7 +43,6 @@ invadersApp.MainMenu.prototype = {
         tweenTitle.onComplete.add(function () {
             // Show bottom info
             logo.visible = true;
-            textCopyright.img.visible = true;
             textPressStart.img.visible = true;
             textIES.img.visible = true;
 
