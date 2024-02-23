@@ -39,7 +39,7 @@ invadersApp.Game = function (game) {
     // Stores the reference to game elements
     this.objects = {};
     this.settings;
-
+    this.evolving = false;
     this.player;
     this.bullets;
     this.cursors;
@@ -130,7 +130,7 @@ invadersApp.Game.prototype = {
         var that = this;
 
         // If physics are paused, skip all
-        if (this.game.physics.arcade.isPaused) return;
+        if (this.game.physics.arcade.isPaused || this.evolving) return;
 
         // Detect collisions with the wall and with the bullets
         this.game.physics.arcade.collide(this.wall, this.objects.invaders);
@@ -179,6 +179,7 @@ invadersApp.Game.prototype = {
         this.gameState = invadersApp.GameState.GAME_OVER;
         //invadersApp.MainMenu.mainMusic.stop();
         this.gameOverMusic.play('', 0, 1, true, true);
+        console.log('Score: ', this.scoreHud.font.text);
     },
     
     updateEvolution: function () {
@@ -188,7 +189,7 @@ invadersApp.Game.prototype = {
             (this.game.time.now > this.lastGenerationTime + this.currentGenerationTime)) {
 
             // Pause the game during the animation
-            this.pauseGame();
+            this.evolving = true;
 
             var evolutionText;
 
@@ -272,7 +273,8 @@ invadersApp.Game.prototype = {
                 // Clear all lines
                 this.bgraphics.clear();
 
-                this.resumeGame();
+                // this.resumeGame();
+                this.evolving = false;
 
                 if (this.objects.invaders.countLiving() >= 100){
                     this.gameOver();
