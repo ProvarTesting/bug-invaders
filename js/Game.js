@@ -47,7 +47,7 @@ invadersApp.Game = function (game) {
 
 
     this.gameState = invadersApp.GameState.PAUSED;
-    this.animationDelay = Phaser.Timer.SECOND;
+    this.animationDelay = Phaser.Timer.QUARTER;
 };
 
 invadersApp.Game.prototype = {
