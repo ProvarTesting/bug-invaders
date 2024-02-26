@@ -57,7 +57,7 @@ invadersApp.Preloader.prototype = {
 		if (this.cache.isSoundDecoded('mainMusic') && this.ready == false)
 		{
 			this.ready = true;
-			this.state.start('MainMenu');
+			this.state.start('NameInput');
 		}
 
 	}

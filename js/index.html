@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
 	<meta charset="UTF-8" />
 	<title>Bug Invaders</title>
@@ -7,34 +8,120 @@
 	<script src="chance.min.js"></script>
 	<script src="Boot.js"></script>
 	<script src="Preloader.js"></script>
+	<script src="NameInput.js"></script>
 	<script src="js/Utils.js"></script>
 	<script src="js/Player.js"></script>
 	<script src="js/Invader.js"></script>
 	<script src="js/Evolution.js"></script>
 	<script src="MainMenu.js"></script>
 	<script src="Game.js"></script>
+
+	<style>
+		#leaderboard {
+			width: 920px;
+			float: center;
+			height: 250px;
+			background-color: #f0f0f0;
+			margin-left: 99px;
+			box-sizing: border-box;
+		}
+
+		#buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#clearScores, #restartGame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 150px;  /* Set a fixed width */
+    height: 50px;  /* Set a fixed height */
+    margin: 20px auto;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+#clearScores {
+    background-color: #f00;
+}
+
+#restartGame {
+    background-color: #4CAF50;
+}
+	</style>
 </head>
+
 <body>
 
-<div id="gameContainer"></div>
+	<div id="gameContainer"></div>
+	<div id="leaderboard"></div>
+	<div id="buttonContainer">
+		<button id="clearScores">Clear Scores</button>
+		<button id="restartGame">Restart Game</button>
+	</div>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
-window.onload = function() {
+		window.onload = function () {
 
 
-	var game = new Phaser.Game(960, 540, Phaser.AUTO, 'gameContainer');
+			var game = new Phaser.Game(960, 540, Phaser.AUTO, 'gameContainer');
 
-	game.state.add('Boot', invadersApp.Boot);
-	game.state.add('Preloader', invadersApp.Preloader);
-	game.state.add('MainMenu', invadersApp.MainMenu);
-	game.state.add('Game', invadersApp.Game);
+			game.state.add('Boot', invadersApp.Boot);
+			game.state.add('Preloader', invadersApp.Preloader);
+			game.state.add('NameInput', invadersApp.NameInput);
+			game.state.add('MainMenu', invadersApp.MainMenu);
+			game.state.add('Game', invadersApp.Game);
 
-	game.state.start('Boot');
+			game.state.start('Boot');
 
-};
+			window.updateLeaderboard = function (scores) {
+				// Sort the scores in descending order
+				scores.sort(function (a, b) {
+					return b.score - a.score;
+				});
+				var leaderboard = document.getElementById('leaderboard');
+				leaderboard.innerHTML = '';
+				for (var i = 0; i < scores.length && i < 10; i++) {
+					leaderboard.innerHTML += 'Rank ' + (i + 1) + ' (' + scores[i].name + '): ' + scores[i].score + '<br>';
+				}
+				// Set the width of the leaderboard to match the game container
+				var gameContainer = document.getElementById('gameContainer');
+				var gameContainerRect = gameContainer.getBoundingClientRect();
+				leaderboard.style.width = gameContainerRect.width + 'px';
+				leaderboard.style.marginLeft = gameContainerRect.left + 'px';
+			}
 
-</script>
+			document.getElementById('clearScores').addEventListener('click', function () {
+				localStorage.removeItem('scores');
+				scores = [];
+				console.log('Scores cleared');
+				window.updateLeaderboard(scores);
+			});
+
+			document.getElementById('restartGame').addEventListener('click', function () {
+				// Restart the game
+				localStorage.removeItem('playerName');
+				window.location.reload();
+			});
+
+			var scores = JSON.parse(localStorage.getItem('scores')) || [];
+			updateLeaderboard(scores);
+
+
+		};
+
+	</script>
 
 </body>
+
 </html>

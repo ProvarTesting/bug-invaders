@@ -10,13 +10,13 @@ var BLUE = 0x15AFF0;
 var ORANGE = 0xEF7D10;
 
 invadersApp.GameState = {
-    PAUSED : 0,
-    RUNNING : 1,
-    GAME_OVER : 2
+    PAUSED: 0,
+    RUNNING: 1,
+    GAME_OVER: 2
 };
 
 invadersApp.Game = function (game) {
-    
+
     // Auto-injected properties
 
     this.game;      //  a reference to the currently running game (Phaser.Game)
@@ -64,7 +64,7 @@ invadersApp.Game.prototype = {
 
         // Initialize basic physics
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        
+
         // Load mainMusic assets
         this.gameOverMusic = this.add.audio('gameOverMusic');
 
@@ -88,7 +88,7 @@ invadersApp.Game.prototype = {
         this.objects.invaders.physicsBodyType = Phaser.Physics.ARCADE;
 
         for (var i = 0; i < INITIAL_INVADERS; i++) {
-            this.objects.invaders.add(new invadersApp.Invader(this, null, this.game.world.width/2, this.game.world.height/2));
+            this.objects.invaders.add(new invadersApp.Invader(this, null, this.game.world.width / 2, this.game.world.height / 2));
         }
 
         // Add HUDs (before the invaders group to appear over them)
@@ -113,7 +113,7 @@ invadersApp.Game.prototype = {
         // Start the game paused with the message READY!
         var readyText = invadersApp.utils.addText(this, this.game.width / 2, this.game.height / 2, 'READY!', 5);
         this.game.input.keyboard.onDownCallback = function () {
-            if (readyText.img.visible){
+            if (readyText.img.visible) {
                 that.game.paused = false;
                 readyText.img.kill();
                 that.lastGenerationTime = that.game.time.now;
@@ -173,15 +173,27 @@ invadersApp.Game.prototype = {
         this.game.physics.arcade.isPaused = false;
         this.gameState = invadersApp.GameState.RUNNING;
     },
-    
+
     gameOver: function () {
+        // Retrieve the player's name from localStorage
+        var playerName = localStorage.getItem('playerName');
+
+        // Add the player's name and score to the scores array
+        var scores = JSON.parse(localStorage.getItem('scores')) || [];
+        scores.push({
+            name: playerName,
+            score: parseInt(this.scoreHud.font.text) // Replace this with the player's actual score
+        });
+        localStorage.setItem('scores', JSON.stringify(scores));
+        window.updateLeaderboard(scores);
         invadersApp.utils.addText(this, this.game.width / 2, this.game.height / 2, 'GAME OVER!', 5);
         this.gameState = invadersApp.GameState.GAME_OVER;
         //invadersApp.MainMenu.mainMusic.stop();
         this.gameOverMusic.play('', 0, 1, true, true);
         console.log('Score: ', this.scoreHud.font.text);
+        
     },
-    
+
     updateEvolution: function () {
         var that = this;
 
@@ -200,7 +212,7 @@ invadersApp.Game.prototype = {
             // The number of invaders
             var alive = this.objects.invaders.countLiving();
 
-            var aliveInvaders = this.objects.invaders.filter(function(child, index, children) {
+            var aliveInvaders = this.objects.invaders.filter(function (child, index, children) {
                 return child.alive;
             }, true);
 
@@ -220,7 +232,7 @@ invadersApp.Game.prototype = {
             this.animationTimer.repeat(this.animationDelay, offspring.length + 1, function () {
                 if (childIndex == offspring.length) return;
 
-                if (evolutionText != undefined){
+                if (evolutionText != undefined) {
                     evolutionText.img.destroy();
                     evolutionText = null;
                 }
@@ -229,8 +241,8 @@ invadersApp.Game.prototype = {
                 aliveInvaders.callAll('hideShield');
 
                 var p = offspring[childIndex++];
-                var x = (p[0].x + p[1].x)/2;
-                var y = (p[0].y + p[1].y)/2;
+                var x = (p[0].x + p[1].x) / 2;
+                var y = (p[0].y + p[1].y) / 2;
                 that.objects.invaders.add(new invadersApp.Invader(that, p[2], x, y));
 
                 // Draw lines
@@ -259,11 +271,11 @@ invadersApp.Game.prototype = {
                 }
 
                 // Decrease the animation time
-                if (this.animationDelay > 50){
+                if (this.animationDelay > 50) {
                     this.animationDelay -= 150;
                 }
 
-                if (evolutionText != undefined){
+                if (evolutionText != undefined) {
                     evolutionText.img.destroy();
                     evolutionText = null;
                 }
@@ -276,7 +288,7 @@ invadersApp.Game.prototype = {
                 // this.resumeGame();
                 this.evolving = false;
 
-                if (this.objects.invaders.countLiving() >= 100){
+                if (this.objects.invaders.countLiving() >= 10) {
                     this.gameOver();
                 }
 
@@ -296,7 +308,7 @@ invadersApp.Game.prototype = {
 
         // draw the wall
         wallBmp.ctx.beginPath();
-        wallBmp.ctx.rect(0,0,this.game.width,3);
+        wallBmp.ctx.rect(0, 0, this.game.width, 3);
         wallBmp.ctx.fillStyle = '#ffffff';
         wallBmp.ctx.fill();
 
