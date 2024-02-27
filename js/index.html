@@ -17,56 +17,65 @@
 	<script src="Game.js"></script>
 
 	<style>
-		#leaderboard {
-			width: 920px;
-			float: center;
-			height: 250px;
-			background-color: #f0f0f0;
-			margin-left: 99px;
-			box-sizing: border-box;
+		#bottomContainer {
+			display: flex;
+			justify-content: space-between;
 		}
 
 		#buttonContainer {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 20px;
+			width: 30%;
+		}
 
-#clearScores, #restartGame {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    width: 150px;  /* Set a fixed width */
-    height: 50px;  /* Set a fixed height */
-    margin: 20px auto;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: background-color 0.3s;
-}
+		#leaderboard {
+			width: 50%;
+			height: 250px;
+			background-color: #f0f0f0;
+			box-sizing: border-box;
+		}
 
-#clearScores {
-    background-color: #f00;
-}
+		#clearScores,
+		#restartGame {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 10px 20px;
+			color: #fff;
+			border: none;
+			cursor: pointer;
+			width: 150px;
+			height: 50px;
+			margin: 20px auto;
+			border-radius: 5px;
+			font-size: 16px;
+			font-weight: bold;
+			text-transform: uppercase;
+			transition: background-color 0.3s;
+		}
 
-#restartGame {
-    background-color: #4CAF50;
-}
+		#clearScores {
+			background-color: #f00;
+		}
+
+		#restartGame {
+			background-color: #4CAF50;
+		}
 	</style>
 </head>
 
 <body>
 
 	<div id="gameContainer"></div>
-	<div id="leaderboard"></div>
-	<div id="buttonContainer">
-		<button id="clearScores">Clear Scores</button>
-		<button id="restartGame">Restart Game</button>
+	<!-- <div id="leaderboard"></div> -->
+	<div id="bottomContainer">
+		<div id="buttonContainer">
+			<button id="restartGame">Restart Game</button>
+			<button id="clearScores">Clear Scores</button>
+		</div>
+		<div id="leaderboard"></div>
 	</div>
 
 	<script type="text/javascript">
@@ -90,7 +99,7 @@
 					return b.score - a.score;
 				});
 				var leaderboard = document.getElementById('leaderboard');
-				leaderboard.innerHTML = '';
+				leaderboard.innerHTML = '<h2>Leaderboard</h2>';
 				for (var i = 0; i < scores.length && i < 10; i++) {
 					leaderboard.innerHTML += 'Rank ' + (i + 1) + ' (' + scores[i].name + '): ' + scores[i].score + '<br>';
 				}
