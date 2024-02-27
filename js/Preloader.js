@@ -11,14 +11,14 @@ invadersApp.Preloader.prototype = {
 
 	preload: function () {
 
-		
+
 
 		var loadingText = invadersApp.utils.addText(this, this.game.width / 2, this.game.height / 2 - 60, 'Loading...', 3);
 
 
 		this.preloadBar = this.add.sprite(this.game.width / 2, loadingText.img.y + 40, 'preloaderBar');
 		this.preloadBar.anchor.setTo(0.5, 0.5);
-       
+
 		//	This sets the preloadBar sprite as a loader sprite.
 		//	What that does is automatically crop the sprite from 0 to full-width
 		//	as the files below are loaded in.
@@ -34,15 +34,17 @@ invadersApp.Preloader.prototype = {
 		this.load.audio('sfx', 'assets/audio/fx_mixdown.ogg');
 
 		//	+ lots of other required assets here
-		this.load.image('nao', 'assets/nao.png');
+		this.load.image('nao', 'assets/player.png');
 		this.load.image('invader', 'assets/invader.png');
 		this.load.image('bullet', 'assets/player_bullet.png');
-        this.load.image('title', 'assets/title-3.png');
+		this.load.image('title', 'assets/title-main.png');
 		this.load.image('logo', 'assets/provar-logo.png');
-        
+		this.load.image('astro', 'assets/astro.png');
+		this.load.image('bugs', 'assets/bugs.png');
+
 
 		// Read game settings
-        this.load.json('settings', 'settings.json');
+		this.load.json('settings', 'settings.json');
 	},
 
 	create: function () {
@@ -53,11 +55,10 @@ invadersApp.Preloader.prototype = {
 	},
 
 	update: function () {
-		
-		if (this.cache.isSoundDecoded('mainMusic') && this.ready == false)
-		{
+
+		if (this.cache.isSoundDecoded('mainMusic') && this.ready == false) {
 			this.ready = true;
-			this.state.start('NameInput');
+			this.state.start('MainMenu');
 		}
 
 	}

@@ -288,7 +288,7 @@ invadersApp.Game.prototype = {
                 // this.resumeGame();
                 this.evolving = false;
 
-                if (this.objects.invaders.countLiving() >= 10) {
+                if (this.objects.invaders.countLiving() >= 100) {
                     this.gameOver();
                 }
 
