@@ -38,7 +38,7 @@ invadersApp.Preloader.prototype = {
 		this.load.image('invader', 'assets/invader.png');
 		this.load.image('bullet', 'assets/player_bullet.png');
         this.load.image('title', 'assets/title-3.png');
-		this.load.image('logo', 'assets/citius-logo-8bit.png');
+		this.load.image('logo', 'assets/provar-logo.png');
         
 
 		// Read game settings

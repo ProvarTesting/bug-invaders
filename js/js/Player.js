@@ -72,9 +72,9 @@ invadersApp.Player.prototype.update = function () {
                     //  And fire it
                     var xpos;
                     if (this.scale.x < 0) {
-                        xpos = this.x - 21;
+                        xpos = this.x - 20;
                     } else {
-                        xpos = this.x + 21;
+                        xpos = this.x + 20;
                     }
                     bullet.reset(xpos, this.y - 20);
                     //bullet.body.velocity.y = -(1000 + aliveInvaders * 15);
