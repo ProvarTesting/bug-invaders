@@ -249,7 +249,7 @@ invadersApp.Game.prototype = {
                 this.bgraphics.clear();
                 this.bgraphics.lineStyle(1, ORANGE);
                 this.bgraphics.moveTo(p[0].x, p[0].y);
-                this.bgraphics.lineTo(p[1].x, p[1].y);
+                // this.bgraphics.lineTo(p[1].x, p[1].y);
 
                 // Draw shields
                 p[0].drawShield(ORANGE);
