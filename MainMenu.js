@@ -79,7 +79,7 @@ invadersApp.MainMenu.prototype = {
 
         this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER).onDown.add(function () {
             this.mainMusic.stop();
-            this.state.start('NameInput');
+            this.state.start('Instructions');
         }, this);
     },
 
