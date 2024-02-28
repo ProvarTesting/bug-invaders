@@ -18,6 +18,7 @@
     <style>
       body {
         margin: 0px;
+        background-color: black;
       }
       #bottomContainer {
         display: flex;
@@ -137,7 +138,7 @@
       canvas {
         margin: 0px !important;
         width: 70vw !important;
-        height: 100vh !important;
+        height: 40vw !important;
       }
     </style>
   </head>
@@ -206,9 +207,11 @@
             return tr;
           };
 
+          const rows = []; 
           for (var i = 0; i < scores.length && i < 10; i++) {
-            tableBody.appendChild(row(i + 1, scores[i].name, scores[i].score));
+            rows.push(row(i + 1, scores[i].name, scores[i].score));
           }
+          tableBody.replaceChildren(...rows);
         };
 
         updateLeaderboard();
