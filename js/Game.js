@@ -185,7 +185,7 @@ invadersApp.Game.prototype = {
             score: parseInt(this.scoreHud.font.text) // Replace this with the player's actual score
         });
         localStorage.setItem('scores', JSON.stringify(scores));
-        window.updateLeaderboard(scores);
+        window.updateLeaderboard();
         invadersApp.utils.addText(this, this.game.width / 2, this.game.height / 2, 'GAME OVER!', 5);
         this.gameState = invadersApp.GameState.GAME_OVER;
         //invadersApp.MainMenu.mainMusic.stop();

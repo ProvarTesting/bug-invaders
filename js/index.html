@@ -1,136 +1,218 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bug Invaders</title>
+    <script src="phaser.min.js"></script>
+    <script src="chance.min.js"></script>
+    <script src="Boot.js"></script>
+    <script src="Preloader.js"></script>
+    <script src="Instructions.js"></script>
+    <script src="js/Utils.js"></script>
+    <script src="js/Player.js"></script>
+    <script src="js/Invader.js"></script>
+    <script src="js/Evolution.js"></script>
+    <script src="MainMenu.js"></script>
+    <script src="Game.js"></script>
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Bug Invaders</title>
-	<script src="phaser.min.js"></script>
-	<script src="chance.min.js"></script>
-	<script src="Boot.js"></script>
-	<script src="Preloader.js"></script>
-	<script src="Instructions.js"></script>
-	<script src="js/Utils.js"></script>
-	<script src="js/Player.js"></script>
-	<script src="js/Invader.js"></script>
-	<script src="js/Evolution.js"></script>
-	<script src="MainMenu.js"></script>
-	<script src="Game.js"></script>
+    <style>
+      body {
+        margin: 0px;
+      }
+      #bottomContainer {
+        display: flex;
+        justify-content: space-between;
+      }
 
-	<style>
-		#bottomContainer {
-			display: flex;
-			justify-content: space-between;
-		}
+      #buttonContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        width: 30%;
+      }
 
-		#buttonContainer {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			gap: 20px;
-			width: 30%;
-		}
+      #leaderboard {
+        width: 50%;
+        height: 250px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+      }
 
-		#leaderboard {
-			width: 50%;
-			height: 250px;
-			background-color: #f0f0f0;
-			box-sizing: border-box;
-		}
+      #clearScores,
+      #restartGame {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        width: 150px;
+        height: 50px;
+        margin: 20px auto;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: background-color 0.3s;
+      }
 
-		#clearScores,
-		#restartGame {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			padding: 10px 20px;
-			color: #fff;
-			border: none;
-			cursor: pointer;
-			width: 150px;
-			height: 50px;
-			margin: 20px auto;
-			border-radius: 5px;
-			font-size: 16px;
-			font-weight: bold;
-			text-transform: uppercase;
-			transition: background-color 0.3s;
-		}
+      #clearScores {
+        background-color: #f00;
+      }
 
-		#clearScores {
-			background-color: #f00;
-		}
+      #restartGame {
+        background-color: #4caf50;
+      }
 
-		#restartGame {
-			background-color: #4CAF50;
-		}
-	</style>
-</head>
+      @font-face {
+        font-family: Minecraft;
+        src: url(assets/fonts/minecraft-font/MinecraftRegular-Bmg3.otf);
+      }
 
-<body>
+      #gameContainer {
+        opacity: 0;
+        transition: opacity 1s;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        #leaderboard {
+          padding: 0 5px;
+          width: 30vw;
+          box-sizing: border-box;
+          background-color: #000;
+          height: 100vh;
+          border-left: 1px dashed blueviolet;
+          font-family: Minecraft;
+          font-size: 20px;
+          letter-spacing: 2px;
+          color: white;
+          text-transform: uppercase;
+          > .title {
+            text-align: center;
+            letter-spacing: 5px;
+            margin: 50px 0px;
+            font-size: 30px;
+            text-shadow: -2px -2px 2px red, 2px 2px 2px red;
+          }
+          > table {
+            width: 100%;
+            border-collapse: collapse;
+            th {
+              border: 1px solid white;
+            }
+          }
 
-	<div id="gameContainer"></div>
-	<!-- <div id="leaderboard"></div> -->
-	<div id="bottomContainer">
-		<div id="buttonContainer">
-			<button id="restartGame">Restart Game</button>
-			<button id="clearScores">Clear Scores</button>
-		</div>
-		<div id="leaderboard"></div>
-	</div>
+          .btn {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            > button {
+              border: 0px;
+              padding: 5px 0px;
+              width: 120px;
+              text-transform: uppercase;
+              background: transparent;
+              color: white;
+              cursor: pointer;
+              font-family: Minecraft;
+              letter-spacing: 2px;
+              &:hover {
+                letter-spacing: 3px;
+              }
+              &:first-child {
+                border: 2px solid firebrick;
+                box-shadow: 2px 2px 2px #f00, -2px -2px 2px #f00;
+              }
+              &:last-child {
+                border: 2px solid darkgreen;
+                box-shadow: 2px 2px 2px #0f0, -2px -2px 2px #0f0;
+              }
+            }
+          }
+        }
+      }
 
-	<script type="text/javascript">
+      canvas {
+        margin: 0px !important;
+        width: 70vw !important;
+        height: 100vh !important;
+      }
+    </style>
+  </head>
 
-		window.onload = function () {
+  <body>
+    <div id="gameContainer">
+      <div id="leaderboard">
+        <div class="title">Leaderboard</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player Name</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="btn">
+          <button onclick="localStorage.removeItem('scores'); window.location.reload();">Clear</button>
+          <button onclick="window.location.reload();">Restart</button>
+        </div>
+      </div>
+    </div>
 
+    <script type="text/javascript">
+      window.onload = function () {
 
-			var game = new Phaser.Game(960, 540, Phaser.AUTO, 'gameContainer');
+        var game = new Phaser.Game(960, 540, Phaser.AUTO, "gameContainer");
 
-			game.state.add('Boot', invadersApp.Boot);
-			game.state.add('Preloader', invadersApp.Preloader);
-			game.state.add('Instructions', invadersApp.Instructions);
-			game.state.add('MainMenu', invadersApp.MainMenu);
-			game.state.add('Game', invadersApp.Game);
+        game.state.add("Boot", invadersApp.Boot);
+        game.state.add("Preloader", invadersApp.Preloader);
+        game.state.add("Instructions", invadersApp.Instructions);
+        game.state.add("MainMenu", invadersApp.MainMenu);
+        game.state.add("Game", invadersApp.Game);
 
-			game.state.start('Boot');
+        game.state.start("Boot");
+        
 
-			window.updateLeaderboard = function (scores) {
-				// Sort the scores in descending order
-				scores.sort(function (a, b) {
-					return b.score - a.score;
-				});
-				var leaderboard = document.getElementById('leaderboard');
-				leaderboard.innerHTML = '<h2>Leaderboard</h2>';
-				for (var i = 0; i < scores.length && i < 10; i++) {
-					leaderboard.innerHTML += 'Rank ' + (i + 1) + ' (' + scores[i].name + '): ' + scores[i].score + '<br>';
-				}
-				// Set the width of the leaderboard to match the game container
-				var gameContainer = document.getElementById('gameContainer');
-				var gameContainerRect = gameContainer.getBoundingClientRect();
-				leaderboard.style.width = gameContainerRect.width + 'px';
-				leaderboard.style.marginLeft = gameContainerRect.left + 'px';
-			}
+        
+        const gameContainer = document.getElementById("gameContainer");
+        gameContainer.style.opacity = "1";
 
-			document.getElementById('clearScores').addEventListener('click', function () {
-				localStorage.removeItem('scores');
-				scores = [];
-				console.log('Scores cleared');
-				window.updateLeaderboard(scores);
-			});
+        window.updateLeaderboard = function () {
+          const tableBody = document.getElementById("tbody");
 
-			document.getElementById('restartGame').addEventListener('click', function () {
-				// Restart the game
-				localStorage.removeItem('playerName');
-				window.location.reload();
-			});
+          const scores = JSON.parse(localStorage.getItem("scores") || "[]");
+          
+          scores.sort(function (a, b) {
+            return b.score - a.score;
+          });
 
-			var scores = JSON.parse(localStorage.getItem('scores')) || [];
-			updateLeaderboard(scores);
+          const row = (rank, name, score) => {
+            const tr = document.createElement("tr");
+            const td1 = document.createElement("td");
+            td1.style.textAlign = "center";
+            const td2 = document.createElement("td");
+            const td3 = document.createElement("td");
+            td3.style.textAlign = "center";
+            td1.textContent = rank;
+            td2.textContent = name;
+            td3.textContent = score;
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            return tr;
+          };
 
+          for (var i = 0; i < scores.length && i < 10; i++) {
+            tableBody.appendChild(row(i + 1, scores[i].name, scores[i].score));
+          }
+        };
 
-		};
-
-	</script>
-
-</body>
-
+        updateLeaderboard();
+      };
+    </script>
+  </body>
 </html>
