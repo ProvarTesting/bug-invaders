@@ -129,11 +129,13 @@ invadersApp.Game.prototype = {
 
         var that = this;
 
+        // We are not pausing the game during evolution, so we need to detect the collision
+        // even if the evolution is in progress so that invaders do not cross the wall.
+        this.game.physics.arcade.collide(this.wall, this.objects.invaders);
+
         // If physics are paused, skip all
         if (this.game.physics.arcade.isPaused || this.evolving) return;
 
-        // Detect collisions with the wall and with the bullets
-        this.game.physics.arcade.collide(this.wall, this.objects.invaders);
         this.game.physics.arcade.overlap(this.player.bullets, this.objects.invaders, function (bullet, invader) {
             if (bullet.alive) {
                 bullet.kill();
