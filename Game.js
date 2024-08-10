@@ -100,8 +100,8 @@ invadersApp.Game.prototype = {
         this.timerHud = invadersApp.utils.addText(this, this.timerText.img.x + this.timerText.img.width / 2 + 30, 20, '00:00', 2);
         // Retrieve and display the player's name
         var playerName = localStorage.getItem('playerName') || 'Guest';
-        this.playerNameText = invadersApp.utils.addText(this, this.timerHud.img.x + this.timerHud.img.width + 80, 20, 'PLAYER: ' + playerName, 2);
-        
+        this.playerNameText = invadersApp.utils.addText(this, this.game.width / 2, this.game.height - 20, playerName, 2);
+
         // Initialize the start time
         this.startTime = this.game.time.now;
         this.pausedTime = 0;
