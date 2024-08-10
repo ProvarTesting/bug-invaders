@@ -1,222 +1,250 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Bug Invaders</title>
-    <script src="phaser.min.js"></script>
-    <script src="chance.min.js"></script>
-    <script src="Boot.js"></script>
-    <script src="Preloader.js"></script>
-    <script src="Instructions.js"></script>
-    <script src="js/Utils.js"></script>
-    <script src="js/Player.js"></script>
-    <script src="js/Invader.js"></script>
-    <script src="js/Evolution.js"></script>
-    <script src="MainMenu.js"></script>
-    <script src="Game.js"></script>
 
-    <style>
-      body {
-        margin: 0px;
-        background-color: black;
-      }
-      #bottomContainer {
-        display: flex;
-        justify-content: space-between;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <title>Bug Invaders</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="phaser.min.js"></script>
+  <script src="chance.min.js"></script>
+  <script src="Boot.js"></script>
+  <script src="Preloader.js"></script>
+  <script src="Instructions.js"></script>
+  <script src="js/Utils.js"></script>
+  <script src="js/Player.js"></script>
+  <script src="js/Invader.js"></script>
+  <script src="js/Evolution.js"></script>
+  <script src="MainMenu.js"></script>
+  <script src="Game.js"></script>
 
-      #buttonContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 20px;
-        width: 30%;
-      }
+  <style>
+    body {
+      margin: 0px;
+      background-color: black;
+    }
+
+    #bottomContainer {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #buttonContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      width: 30%;
+    }
+
+    #leaderboard {
+      width: 50%;
+      height: 250px;
+      background-color: #f0f0f0;
+      box-sizing: border-box;
+    }
+
+    #clearScores,
+    #restartGame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      width: 150px;
+      height: 50px;
+      margin: 20px auto;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.3s;
+    }
+
+    #clearScores {
+      background-color: #f00;
+    }
+
+    #restartGame {
+      background-color: #4caf50;
+    }
+
+    @font-face {
+      font-family: Minecraft;
+      src: url(assets/fonts/minecraft-font/MinecraftRegular-Bmg3.otf);
+    }
+
+    #gameContainer {
+      opacity: 0;
+      transition: opacity 1s;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
 
       #leaderboard {
-        width: 50%;
-        height: 250px;
-        background-color: #f0f0f0;
+        padding: 0 5px;
+        width: 30vw;
         box-sizing: border-box;
-      }
-
-      #clearScores,
-      #restartGame {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 20px;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        width: 150px;
-        height: 50px;
-        margin: 20px auto;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: bold;
-        text-transform: uppercase;
-        transition: background-color 0.3s;
-      }
-
-      #clearScores {
-        background-color: #f00;
-      }
-
-      #restartGame {
-        background-color: #4caf50;
-      }
-
-      @font-face {
+        background-color: #000;
+        height: 100vh;
+        border-left: 1px dashed blueviolet;
         font-family: Minecraft;
-        src: url(assets/fonts/minecraft-font/MinecraftRegular-Bmg3.otf);
-      }
+        font-size: 20px;
+        letter-spacing: 2px;
+        color: white;
+        text-transform: uppercase;
 
-      #gameContainer {
-        opacity: 0;
-        transition: opacity 1s;
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: space-between;
-        #leaderboard {
-          padding: 0 5px;
-          width: 30vw;
-          box-sizing: border-box;
-          background-color: #000;
-          height: 100vh;
-          border-left: 1px dashed blueviolet;
-          font-family: Minecraft;
-          font-size: 20px;
-          letter-spacing: 2px;
-          color: white;
-          text-transform: uppercase;
-          > .title {
-            text-align: center;
-            letter-spacing: 5px;
-            margin: 50px 0px;
-            font-size: 30px;
-            text-shadow: -2px -2px 2px red, 2px 2px 2px red;
+        >.title {
+          text-align: center;
+          letter-spacing: 5px;
+          margin: 50px 0px;
+          font-size: 30px;
+          text-shadow: -2px -2px 2px red, 2px 2px 2px red;
+        }
+
+        >table {
+          width: 100%;
+          border-collapse: collapse;
+
+          th {
+            border: 1px solid white;
           }
-          > table {
-            width: 100%;
-            border-collapse: collapse;
-            th {
-              border: 1px solid white;
+        }
+
+        .btn {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 20px;
+
+          >button {
+            border: 0px;
+            padding: 5px 0px;
+            width: 120px;
+            text-transform: uppercase;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-family: Minecraft;
+            letter-spacing: 2px;
+
+            &:hover {
+              letter-spacing: 3px;
             }
-          }
 
-          .btn {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            > button {
-              border: 0px;
-              padding: 5px 0px;
-              width: 120px;
-              text-transform: uppercase;
-              background: transparent;
-              color: white;
-              cursor: pointer;
-              font-family: Minecraft;
-              letter-spacing: 2px;
-              &:hover {
-                letter-spacing: 3px;
-              }
-              &:first-child {
-                border: 2px solid firebrick;
-                box-shadow: 2px 2px 2px #f00, -2px -2px 2px #f00;
-              }
-              &:last-child {
-                border: 2px solid darkgreen;
-                box-shadow: 2px 2px 2px #0f0, -2px -2px 2px #0f0;
-              }
+            &:first-child {
+              border: 2px solid firebrick;
+              box-shadow: 2px 2px 2px #f00, -2px -2px 2px #f00;
+            }
+
+            &:last-child {
+              border: 2px solid darkgreen;
+              box-shadow: 2px 2px 2px #0f0, -2px -2px 2px #0f0;
             }
           }
         }
       }
+    }
 
-      canvas {
-        margin: 0px !important;
-        width: 70vw !important;
-        height: 40vw !important;
-        border-bottom: 2px solid white;
-      }
-    </style>
-  </head>
+    canvas {
+      margin: 0px !important;
+      width: 70vw !important;
+      height: 40vw !important;
+      border-bottom: 2px solid white;
+    }
+  </style>
+</head>
 
-  <body>
-    <div id="gameContainer">
-      <div id="leaderboard">
-        <div class="title">Leaderboard</div>
-        <table>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Player Name</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-        <div class="btn">
-          <button onclick="localStorage.removeItem('scores'); updateLeaderboard();">Clear</button>
-          <button onclick="window.location.reload();">Restart</button>
-        </div>
+<body>
+  <div id="gameContainer">
+    <div id="leaderboard">
+      <div class="title">Leaderboard</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="btn">
+        <button onclick="localStorage.removeItem('scores'); updateLeaderboard();">Clear</button>
+        <button onclick="window.location.reload();">Restart</button>
       </div>
     </div>
+  </div>
 
-    <script type="text/javascript">
-      window.onload = function () {
+  <script type="text/javascript">
+    function sendContactDetailsToGoogleAppsScript(contactDetails) {
+      axios({
+        method: 'post',
+        url: 'https://script.google.com/macros/s/AKfycbwuS5Ds68gmCZcuOcGW5FH41Ld14C7QFKMEf_8SY3yjeYms6BNPrxGtyEBcK4LUqtLuBA/exec',
+        data: contactDetails,
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+      }).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
 
-        var game = new Phaser.Game(960, 540, Phaser.AUTO, "gameContainer");
+    }
 
-        game.state.add("Boot", invadersApp.Boot);
-        game.state.add("Preloader", invadersApp.Preloader);
-        game.state.add("Instructions", invadersApp.Instructions);
-        game.state.add("MainMenu", invadersApp.MainMenu);
-        game.state.add("Game", invadersApp.Game);
+    window.onload = function () {
 
-        game.state.start("Boot");
-        
+      var game = new Phaser.Game(960, 540, Phaser.AUTO, "gameContainer");
 
-        
-        const gameContainer = document.getElementById("gameContainer");
-        gameContainer.style.opacity = "1";
+      game.state.add("Boot", invadersApp.Boot);
+      game.state.add("Preloader", invadersApp.Preloader);
+      game.state.add("Instructions", invadersApp.Instructions);
+      game.state.add("MainMenu", invadersApp.MainMenu);
+      game.state.add("Game", invadersApp.Game);
 
-        window.updateLeaderboard = function () {
-          const tableBody = document.getElementById("tbody");
+      game.state.start("Boot");
 
-          const scores = JSON.parse(localStorage.getItem("scores") || "[]");
-          
-          scores.sort(function (a, b) {
-            return b.score - a.score;
-          });
 
-          const row = (rank, name, score) => {
-            const tr = document.createElement("tr");
-            const td1 = document.createElement("td");
-            td1.style.textAlign = "center";
-            const td2 = document.createElement("td");
-            const td3 = document.createElement("td");
-            td3.style.textAlign = "center";
-            td1.textContent = rank;
-            td2.textContent = name;
-            td3.textContent = score;
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            tr.appendChild(td3);
-            return tr;
-          };
 
-          const rows = []; 
-          for (var i = 0; i < scores.length && i < 10; i++) {
-            rows.push(row(i + 1, scores[i].name, scores[i].score));
-          }
-          tableBody.replaceChildren(...rows);
+      const gameContainer = document.getElementById("gameContainer");
+      gameContainer.style.opacity = "1";
+
+      window.updateLeaderboard = function () {
+        const tableBody = document.getElementById("tbody");
+
+        const scores = JSON.parse(localStorage.getItem("scores") || "[]");
+
+        scores.sort(function (a, b) {
+          return b.score - a.score;
+        });
+
+        const row = (rank, name, score) => {
+          const tr = document.createElement("tr");
+          const td1 = document.createElement("td");
+          td1.style.textAlign = "center";
+          const td2 = document.createElement("td");
+          const td3 = document.createElement("td");
+          td3.style.textAlign = "center";
+          td1.textContent = rank;
+          td2.textContent = name;
+          td3.textContent = score;
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          tr.appendChild(td3);
+          return tr;
         };
 
-        updateLeaderboard();
+        const rows = [];
+        for (var i = 0; i < scores.length && i < 10; i++) {
+          rows.push(row(i + 1, scores[i].name, scores[i].score));
+        }
+        tableBody.replaceChildren(...rows);
       };
-    </script>
-  </body>
+
+      updateLeaderboard();
+    };
+  </script>
+</body>
+
 </html>
