@@ -8,6 +8,19 @@ invadersApp.Boot.prototype = {
 
     init: function () {
 
+         // Browser policies block auto play of audio, add event listener for user interaction to resume audio context
+         var resumeAudioContext = function () {
+            if (this.sound.context.state === 'suspended') {
+                this.sound.context.resume();
+            }
+            // Remove the event listener once the audio context is resumed
+            document.body.removeEventListener('click', resumeAudioContext);
+            document.body.removeEventListener('keydown', resumeAudioContext);
+        }.bind(this);
+
+        document.body.addEventListener('click', resumeAudioContext);
+        document.body.addEventListener('keydown', resumeAudioContext);
+
         //  Unless you specifically know your game needs to support multi-touch I would recommend setting this to 1
         this.input.maxPointers = 1;
 
