@@ -96,6 +96,15 @@ invadersApp.Game.prototype = {
         this.scoreHud = invadersApp.utils.addText(this, this.scoreText.img.x + this.scoreText.img.width / 2 + 30, 20, invadersApp.utils.pad(0, 3), 2);
         this.invadersText = invadersApp.utils.addText(this, this.scoreHud.img.x + this.scoreHud.img.width + 80, 20, 'INVADERS:', 2);
         this.invadersHud = invadersApp.utils.addText(this, this.invadersText.img.x + this.invadersText.img.width / 2 + 30, 20, invadersApp.utils.pad(0, 3), 2);
+        this.timerText = invadersApp.utils.addText(this, this.invadersHud.img.x + this.invadersHud.img.width + 80, 20, 'TIME: ', 2);
+        this.timerHud = invadersApp.utils.addText(this, this.timerText.img.x + this.timerText.img.width / 2 + 30, 20, '00:00', 2);
+        // Retrieve and display the player's name
+        var playerName = localStorage.getItem('playerName') || 'Guest';
+        this.playerNameText = invadersApp.utils.addText(this, this.timerHud.img.x + this.timerHud.img.width + 80, 20, 'PLAYER: ' + playerName, 2);
+        
+        // Initialize the start time
+        this.startTime = this.game.time.now;
+        this.pausedTime = 0;
 
         // Create and add the main player
         this.player = new invadersApp.Player(this);
@@ -128,6 +137,13 @@ invadersApp.Game.prototype = {
     update: function () {
 
         var that = this;
+        // Update Timer HUD
+        if (this.gameState === invadersApp.GameState.RUNNING) {
+            var elapsedSeconds = Math.floor((this.game.time.now - this.startTime) / 1000);
+            var minutes = Math.floor(elapsedSeconds / 60);
+            var seconds = elapsedSeconds % 60;
+            this.timerHud.font.text = invadersApp.utils.pad(minutes, 2) + ':' + invadersApp.utils.pad(seconds, 2);
+        }
 
         // We are not pausing the game during evolution, so we need to detect the collision
         // even if the evolution is in progress so that invaders do not cross the wall.
@@ -169,11 +185,13 @@ invadersApp.Game.prototype = {
     pauseGame: function () {
         this.game.physics.arcade.isPaused = true;
         this.gameState = invadersApp.GameState.PAUSED;
+        this.pausedTime = this.game.time.now;
     },
 
     resumeGame: function () {
         this.game.physics.arcade.isPaused = false;
         this.gameState = invadersApp.GameState.RUNNING;
+        this.startTime += (this.game.time.now - this.pausedTime);
     },
 
     gameOver: function () {
