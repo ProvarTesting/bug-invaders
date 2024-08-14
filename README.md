@@ -30,10 +30,10 @@ This game is a fork of https://github.com/citiususc/citius-invaders/tree/master 
 ## Screenshots
 
 ### Main menu
-![Main menu](https://github.com/citiususc/citius-invaders/blob/2481bac3c424a95fbb782de329dceb0f059e9a09/screenshots/main-menu.png?raw=true)
+![Main menu](<img width="1721" alt="image" src="https://github.com/user-attachments/assets/4435c00e-0b04-4219-ad42-6b4322be3ebb">)
 
 ### Game screen
-![Game screen](https://github.com/citiususc/citius-invaders/blob/2481bac3c424a95fbb782de329dceb0f059e9a09/screenshots/game.png?raw=true)
+![Game screen](<img width="1724" alt="image" src="https://github.com/user-attachments/assets/189c829a-682f-43f3-9037-efbf1efd76e4">)
 
 ### License
 
