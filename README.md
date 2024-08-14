@@ -2,7 +2,7 @@
 
 An old-style arcade game. 
 
-__[Play the web version!](https://ajaylamba-provar.github.io/bug-invaders/)__
+__[Play the web version!](https://provartesting.github.io/bug-invaders/)__
 
 ## About
 
@@ -20,7 +20,7 @@ Controls are very easy. Just use left/right arrow to move your robot and space t
 
 ## Code
 
-There are two versions of the game, a [python version](https://github.com/ajaylamba-provar/bug-invaders/tree/main/python) built on top of the [SGE Game Engine](http://pythonhosted.org/sge-pygame/index.html) and a [HTML5 version](https://github.com/ajaylamba-provar/bug-invaders/tree/main/js) made with [Phaser](http://phaser.io/). You can play the HTML5 version here: https://ajaylamba-provar.github.io/bug-invaders/
+There are two versions of the game, a [python version](https://github.com/ajaylamba-provar/bug-invaders/tree/main/python) built on top of the [SGE Game Engine](http://pythonhosted.org/sge-pygame/index.html) and a [HTML5 version](https://github.com/provartesting/bug-invaders/tree/main/js) made with [Phaser](http://phaser.io/). You can play the HTML5 version here: https://ajaylamba-provar.github.io/bug-invaders/
 
 ## Authors
 
@@ -30,9 +30,9 @@ This game is a fork of https://github.com/citiususc/citius-invaders/tree/master 
 ## Screenshots
 
 ### Main menu
-![Main menu](https://github.com/ajaylamba-provar/bug-invaders/blob/main/screenshots/main-menu.png)
+![Main menu](https://github.com/provartesting/bug-invaders/blob/main/screenshots/main-menu.png)
 ### Game screen
-![Game screen](https://github.com/ajaylamba-provar/bug-invaders/blob/main/screenshots/game.png)
+![Game screen](https://github.com/provartesting/bug-invaders/blob/main/screenshots/game.png)
 
 ### License
 
