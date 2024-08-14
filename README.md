@@ -30,10 +30,9 @@ This game is a fork of https://github.com/citiususc/citius-invaders/tree/master 
 ## Screenshots
 
 ### Main menu
-![Main menu](<img width="1721" alt="image" src="https://github.com/user-attachments/assets/4435c00e-0b04-4219-ad42-6b4322be3ebb">)
-
+![Main menu](https://github.com/ajaylamba-provar/bug-invaders/blob/main/screenshots/main-menu.png)
 ### Game screen
-![Game screen](<img width="1724" alt="image" src="https://github.com/user-attachments/assets/189c829a-682f-43f3-9037-efbf1efd76e4">)
+![Game screen](https://github.com/ajaylamba-provar/bug-invaders/blob/main/screenshots/game.png)
 
 ### License
 
