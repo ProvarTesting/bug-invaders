@@ -84,10 +84,11 @@
 
       #leaderboard {
         padding: 0 5px;
-        width: 30vw;
+        width: 20vw;
         box-sizing: border-box;
         background-color: #000;
-        height: 100vh;
+        height: calc(100vw * 0.5625) !important; /* Assuming a 16:9 aspect ratio */
+        max-height: 90vh !important;
         border-left: 1px dashed blueviolet;
         font-family: Minecraft;
         font-size: 20px;
@@ -146,32 +147,42 @@
       }
     }
 
+    #wrapper {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      border-bottom: 2px solid white;
+    }
+
     canvas {
       margin: 0px !important;
-      width: 75vw !important;
-      height: 45vw !important;
-      border-bottom: 2px solid white;
+      width: 100vw !important;
+      height: calc(100vw * 0.5625) !important; /* Assuming a 16:9 aspect ratio */
+      max-height: 90vh !important;
+      max-width: calc(90vh * 1.7778) !important; /* Assuming a 16:9 aspect ratio */
     }
   </style>
 </head>
 
 <body>
   <div id="gameContainer">
-    <div id="leaderboard">
-      <div class="title">Leaderboard</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Player Name</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
-      <div class="btn">
-        <button onclick="localStorage.removeItem('scores'); updateLeaderboard();">Clear</button>
-        <button onclick="window.location.reload();">Restart</button>
+    <div id="wrapper">
+      <div id="leaderboard">
+        <div class="title">Leaderboard</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player Name</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="btn">
+          <button onclick="localStorage.removeItem('scores'); updateLeaderboard();">Clear</button>
+          <button onclick="window.location.reload();">Restart</button>
+        </div>
       </div>
     </div>
   </div>
@@ -195,7 +206,7 @@
 
     window.onload = function () {
 
-      var game = new Phaser.Game(960, 540, Phaser.AUTO, "gameContainer");
+      var game = new Phaser.Game(960, 540, Phaser.AUTO, "wrapper");
 
       game.state.add("Boot", invadersApp.Boot);
       game.state.add("Preloader", invadersApp.Preloader);
@@ -243,6 +254,31 @@
       };
 
       updateLeaderboard();
+
+      // Set Phaser scale mode to RESIZE
+      game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+
+      // Adjust game size on window resize
+      window.addEventListener('resize', function () {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const aspectRatio = 960 / 540; // Original aspect ratio
+
+        if (width / height > aspectRatio) {
+          game.scale.setGameSize(height * aspectRatio, height);
+        } else {
+          game.scale.setGameSize(width, width / aspectRatio);
+        }
+        // Adjust leaderboard height to match canvas height
+        const canvas = document.querySelector('canvas');
+        const leaderboard = document.getElementById('leaderboard');
+        if (canvas && leaderboard) {
+          leaderboard.style.height = `${canvas.clientHeight}px`;
+        }
+      });
+
+      // Trigger resize event to set initial size
+      window.dispatchEvent(new Event('resize'));
     };
   </script>
 </body>
