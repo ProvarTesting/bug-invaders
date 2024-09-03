@@ -210,6 +210,7 @@ invadersApp.Game.prototype = {
         this.gameState = invadersApp.GameState.GAME_OVER;
         //invadersApp.MainMenu.mainMusic.stop();
         this.gameOverMusic.play('', 0, 1, true, true);
+        toggleLeaderboard();
         console.log('Score: ', this.scoreHud.font.text);
         
     },
