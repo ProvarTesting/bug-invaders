@@ -226,8 +226,11 @@
     }
 
     function clearScores() {
-      localStorage.removeItem('scores');
-      updateLeaderboard();
+      const leaderboard = document.getElementById('leaderboard');
+      if (leaderboard.classList.contains('show')) {
+        localStorage.removeItem('scores');
+        updateLeaderboard();
+      }
     }
 
     function restart() {

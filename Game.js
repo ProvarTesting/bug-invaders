@@ -130,6 +130,19 @@ invadersApp.Game.prototype = {
             }
         };
 
+        var f1Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F1);
+        f1Key.onDown.add(function () {
+            toggleLeaderboard();
+        }, this);
+        var f2Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F2);
+        f2Key.onDown.add(function () {
+            restart();
+        }, this);
+        var f3Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F3);
+        f3Key.onDown.add(function () {
+            clearScores();
+        }, this);
+
         this.updateCounter();
         this.game.paused = true;
     },
@@ -210,8 +223,11 @@ invadersApp.Game.prototype = {
         this.gameState = invadersApp.GameState.GAME_OVER;
         //invadersApp.MainMenu.mainMusic.stop();
         this.gameOverMusic.play('', 0, 1, true, true);
-        toggleLeaderboard();
-        console.log('Score: ', this.scoreHud.font.text);
+        invadersApp.utils.showMinecraftAlert(this, 'Game Over! Your score is ' + this.scoreHud.font.text);
+        // Add a 5-second delay before showing the leaderboard
+        setTimeout(() => {
+            toggleLeaderboard();
+        }, 5000);
         
     },
 

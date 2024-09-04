@@ -91,10 +91,6 @@ invadersApp.MainMenu.prototype = {
         }, this);
         var f3Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F3);
         f3Key.onDown.add(function () {
-            toggleLeaderboard();
-        }, this);
-        var f4Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F4);
-        f4Key.onDown.add(function () {
             clearScores();
         }, this);
     },
