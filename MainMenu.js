@@ -81,6 +81,22 @@ invadersApp.MainMenu.prototype = {
             this.mainMusic.stop();
             this.state.start('Instructions');
         }, this);
+        var f1Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F1);
+        f1Key.onDown.add(function () {
+            toggleLeaderboard();
+        }, this);
+        var f2Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F2);
+        f2Key.onDown.add(function () {
+            restart();
+        }, this);
+        var f3Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F3);
+        f3Key.onDown.add(function () {
+            toggleLeaderboard();
+        }, this);
+        var f4Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F4);
+        f4Key.onDown.add(function () {
+            clearScores();
+        }, this);
     },
 
     update: function () {

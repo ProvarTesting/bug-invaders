@@ -148,10 +148,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-
-
-
-
     }
 
 
@@ -180,28 +176,11 @@
 <body>
   <div id="gameContainer">
     <div id="wrapper">
-      <!-- <div id="leaderboard">
-        <div class="title">Leaderboard</div>
-        <table>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Player Name</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-        <div class="btn">
-          <button onclick="localStorage.removeItem('scores'); updateLeaderboard();">Clear</button>
-          <button onclick="window.location.reload();">Restart</button>
-        </div>
-      </div> -->
     </div>
     <div id="bottomContainer">
       <div id="buttonContainer">
-        <button id="clearScores" onclick="toggleLeaderboard()">Leaderboard</button>
-        <button id="restartGame" onclick="window.location.reload();">Restart Game</button>
+        <button id="leaderboardButton" onclick="toggleLeaderboard()">Leaderboard</button>
+        <button id="restartGame" onclick="restart();">Restart Game</button>
       </div>
     </div>
   </div>
@@ -219,7 +198,7 @@
       <tbody id="tbody"></tbody>
     </table>
     <div class="btn">
-      <button onclick="localStorage.removeItem('scores'); updateLeaderboard();">Clear</button>
+      <button onclick="clearScores();">Clear</button>
       <button onclick="toggleLeaderboard()">Back to Game</button>
     </div>
   </div>
@@ -246,19 +225,28 @@
       leaderboard.classList.toggle('show');
     }
 
+    function clearScores() {
+      localStorage.removeItem('scores');
+      updateLeaderboard();
+    }
+
+    function restart() {
+      window.location.reload();
+    }
+
     window.onload = function () {
 
       var game = new Phaser.Game(960, 540, Phaser.AUTO, "wrapper");
-
+      
+      
+      
       game.state.add("Boot", invadersApp.Boot);
       game.state.add("Preloader", invadersApp.Preloader);
       game.state.add("Instructions", invadersApp.Instructions);
       game.state.add("MainMenu", invadersApp.MainMenu);
       game.state.add("Game", invadersApp.Game);
-
+      
       game.state.start("Boot");
-
-
 
       const gameContainer = document.getElementById("gameContainer");
       gameContainer.style.opacity = "1";

@@ -109,7 +109,7 @@ invadersApp.Instructions.prototype = {
                 this.startGame();
             }
         }, this);
-
+        
         function isValidEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
